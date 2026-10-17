@@ -1,0 +1,63 @@
+# Inference config for WarpResidualEncoder + LatentRecon + 3DGS pipeline.
+#
+# Usage:
+#   python eval/re10k.py --config configs/inference/prism.yaml
+
+# Inherit model arch (same as lyra_static.yaml)
+config_path:
+  - configs/training/default.yaml
+  - configs/training/3dgs_res_704_1280_views_121_multi_6_prune.yaml
+
+# --- WarpResidualEncoder checkpoint ---
+encoder_ckpt_path: checkpoints/prism/prism_stage2.pt
+
+# --- Lyra SDG dataset root ---
+dataset_root: ./datasets/lyra_static
+
+# --- Precomputed warp files (set to null to fall back to online MoGe) ---
+warp_precompute_dir: outputs/warp_precompute
+
+# --- Fixed reference frame index (must match train/precompute_warp.py and training) ---
+prism_fixed_ref_frame: 0
+
+# --- LatentRecon checkpoint (official pretrained) ---
+recon_ckpt_path: checkpoints/Lyra/lyra_static.pt
+
+# Output directory for eval/single_image.py
+out_dir_inference_single: outputs/inference_warp_residual_single
+
+# Camera view order (same as lyra_static.yaml)
+static_view_indices_fixed: ['5', '0', '1', '2', '3', '4']
+
+# Only render every 4th frame (same as lyra_static.yaml)
+target_index_subsample: 4
+
+# Static scene: fix time index
+set_manual_time_idx: true
+target_index_manual: null
+
+# Export Gaussians as .ply
+save_gaussians: false
+
+# Video fps
+out_fps: 24
+
+# Random seed
+seed: 42
+
+# No depth at inference
+use_depth: false
+
+# WarpResidualEncoder architecture (must match training)
+prism_latent_channels: 16
+prism_plucker_channels: 32
+prism_embed_dim: 512
+prism_depth: 8
+prism_num_heads: 8
+prism_mlp_ratio: 4.0
+prism_patch_size: 4
+prism_latent_T: 16
+use_flow_correction: true
+flow_hidden: 64
+flow_max_flow: 4.0
+

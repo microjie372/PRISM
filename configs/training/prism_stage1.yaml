@@ -1,0 +1,86 @@
+experiment_name: PRISM_STAGE1
+output_dir: outputs/training/prism_stage1
+
+config_path:
+  - configs/training/default.yaml
+  - configs/training/3dgs_res_704_1280_views_121_multi_6_prune.yaml
+
+data_mode: [['lyra_static', 1]]
+num_workers: 2
+batch_size: 1
+
+init_ckpt: outputs/training/prism_init/checkpoint-20000/encoder.pt
+
+checkpointing_steps: 100
+permanent_checkpointing_steps: 1000
+checkpoints_total_limit: 5
+max_train_steps: 5000
+resume_from_checkpoint: latest
+
+dataset_root: ./datasets/lyra_static
+warp_precompute_dir: outputs/warp_precompute
+prism_fixed_ref_frame: 0
+
+prism_latent_channels: 16
+prism_plucker_channels: 32
+prism_embed_dim: 512
+prism_depth: 8
+prism_num_heads: 8
+prism_mlp_ratio: 4.0
+prism_patch_size: 4
+prism_latent_T: 16
+
+
+vae_backbone: cosmos1
+vae_path: checkpoints/cosmos_predict1/Cosmos-Tokenize1-CV8x8x8-720p
+
+use_plucker: true
+plucker_embedding_vae: true
+compute_plucker_cuda: true
+compute_plucker_dtype: bfloat16
+plucker_embedding_vae_fuse_type: concat
+relative_translation_scale: true
+patch_size_out_factor: [1, 8, 8]
+
+img_size: [704, 1280]
+num_latent_c: 16
+latent_time_compression: 8
+latent_spat_compression: 8
+num_input_views: 121
+num_input_multi_views: 6
+sample_num_input_multi_views: false
+num_views: 130
+
+mixed_precision: no
+use_deepspeed: false
+gradient_accumulation_steps: 1
+learning_rate: 1e-4
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 100
+lr_num_cycles: 1
+max_grad_norm: 1.0
+adam_beta1: 0.9
+adam_beta2: 0.999
+adam_weight_decay: 1e-2
+adam_epsilon: 1e-8
+find_unused_parameters: false
+
+use_flow_correction: true
+flow_max_flow: 4.0
+flow_hidden: 64
+prism_drop_rate: 0.0
+
+# === Feature distillation settings ===
+feat_distill_layers: [7, 15]
+feat_distill_loss_weight: [1.0, 1.0]
+lambda_feat_cos: 1.0
+
+load_latents: true
+mirror_static: true
+subsample_data_train_val: False
+subsample_target: null
+
+log_with: null
+logging_dir: logs
+workspace: ./workspace
+local_rank: -1

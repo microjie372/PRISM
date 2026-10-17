@@ -1,0 +1,49 @@
+# The entry point config supplies config_path; see configs/inference/prism.yaml.
+config_path: null
+out_dir_inference: outputs/inference
+dataset_name: lyra_static
+
+# If not checkpoint name given, take the latest
+ckpt_path: null
+ckpt_name: null
+
+# Set view indices manually
+static_view_indices_fixed: null
+
+# Only render a stride of the cameras from the 3DGS
+target_index_subsample: 1
+
+# Do evaluation
+do_eval: false
+
+# Don't read and write the depth
+use_depth: false
+
+# Overwrite number of test images
+num_test_images: null
+
+# Video output fps
+out_fps: 24
+
+# Assume static scenes in default
+target_index_manual: null
+target_index_manual_start_idx: null
+
+## Export file config
+# Output a grid of results, if yes, how many scenes to visualize in one grid
+save_grid: false
+num_grid_samples: 4
+# Output RGB decoder output next to the 3DGS rendering
+save_gt_input: true
+# Output a separate file of the RGB decoder output
+save_video_input: false
+# Output annotated gt depth
+save_gt_depth: true
+# Save a RGB-decoded version of the latents
+save_rgb_decoding: false
+# Output 3D gaussians as simple ply file
+save_gaussians: false
+# Output 3D gaussians using the original 3DGS export script
+save_gaussians_orig: 
+# Skip existing generated file
+skip_existing: false

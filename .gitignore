@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Weights, data and run outputs are downloaded or generated, never committed
+checkpoints/
+datasets/
+data/
+outputs/
+workspace/
+logs/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Local tooling
+.idea/
+.vscode/
+.claude/
+CLAUDE.md
+
+# Download targets
+assets/
+lyra_dataset/
+
+# Experiment tracking and stray caches
+wandb/
+*.egg-info/
+.DS_Store
+.ipynb_checkpoints/
+.pytest_cache/

@@ -1,0 +1,72 @@
+PRISM
+Copyright (c) 2026 The PRISM Authors
+
+This product includes software developed at NVIDIA Corporation.
+
+-------------------------------------------------------------------------------
+
+This repository contains PRISM, which builds on NVIDIA Lyra (Lyra-1). Both
+PRISM's own code and the Lyra code it builds on are licensed under the Apache
+License, Version 2.0; see LICENSE.
+
+PRISM's own contribution is Copyright (c) 2026 The PRISM Authors and consists
+of the residual encoder and geometric warp prior under prism/, the training
+entry points under train/, the benchmark scripts under eval/, the dataset
+converter scripts/prepare_re10k.py, and the documentation under docs/.
+
+The following components are carried over from NVIDIA Lyra
+(https://github.com/nv-tlabs/lyra), Copyright (c) 2025 NVIDIA CORPORATION &
+AFFILIATES, licensed under the Apache License, Version 2.0:
+
+  src/                 the 3DGS decoder (LatentRecon), data stack and
+                       rendering code that PRISM predicts latents for
+  cosmos_predict1/     NVIDIA Cosmos, as vendored by Lyra, used here for the
+                       Cosmos tokenizer, camera trajectories and MoGe depth
+  configs/             model and resolution configs, except the PRISM configs
+                       named below
+  ATTRIBUTIONS.md      third-party attributions for the vendored Cosmos code
+  CONTRIBUTING.md
+
+Lyra's own environment files, checkpoint download scripts and entry points are
+not redistributed here; they are obtained from Lyra directly, as described in
+docs/setup.md.
+
+PRISM's own configs are configs/training/prism_init.yaml,
+configs/training/prism_stage1.yaml, configs/training/prism_stage2.yaml and
+configs/inference/prism.yaml.
+
+The following files carried over from Lyra have been modified, and each carries
+a notice of modification as required by Section 4(b) of the Apache License:
+
+  src/models/data/provider.py          fixed reference frame and scene-count
+                                       limit for PRISM training
+  src/models/data/registry.py          dataset root for the Lyra SDG data
+  src/models/data/radym_wrapper.py
+  src/models/recon/model_latent_recon.py
+  src/models/utils/loss.py
+  configs/training/default.yaml
+  configs/training/3dgs_res_704_1280_views_121_multi_6_prune.yaml
+  configs/accelerate/accelerate_config_single.yaml
+  cosmos_predict1/diffusion/inference/gen3c_single_image_sdg.py
+  cosmos_predict1/diffusion/training/datasets/dataset_3D.py
+  cosmos_predict1/diffusion/training/networks/general_dit.py
+
+-------------------------------------------------------------------------------
+
+MODEL WEIGHTS
+
+The frozen 3DGS decoder PRISM builds on is the Lyra checkpoint, which is
+released under the NVIDIA Open Model License, not Apache 2.0:
+
+  https://huggingface.co/nvidia/Lyra
+  https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license
+
+It is not redistributed here and must be obtained from NVIDIA under that
+licence. PRISM's own released encoder weights contain the residual encoder
+alone.
+
+Training data is the Lyra SDG dataset, released by NVIDIA under its own terms:
+
+  https://huggingface.co/datasets/nvidia/PhysicalAI-SpatialIntelligence-Lyra-SDG
+
+NVIDIA is not affiliated with, and does not endorse, this project.
