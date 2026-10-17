@@ -25,7 +25,7 @@ checkpoints/
   prism/prism_stage2.pt                           PRISM's encoder
 ```
 
-PRISM's encoder weights: TBD.
+PRISM's encoder weights: [huggingface.co/microjet378/PRISM](https://huggingface.co/microjet378/PRISM).
 
 Our results were produced with Python 3.10, torch 2.6.0+cu124 and
 flash-attn 2.7.4.post1 on a single A6000.

@@ -41,10 +41,7 @@ CUDA_VISIBLE_DEVICES=0 accelerate launch $ACC train/stage2.py \
 |---|---|---|---|
 | config | `prism_init.yaml` | `prism_stage1.yaml` | `prism_stage2.yaml` |
 | steps | 20000 | 5000 | 10000 |
-| learning rate | 5e-4 | 1e-4 | 1e-4 |
 | loss | latent MSE | cosine on decoder blocks 7 and 15 | LPIPS + dynamic MSE |
 
 Checkpoints land in `<output_dir>/checkpoint-<step>/encoder.pt`, which is what
-`--encoder_ckpt` takes at [evaluation](eval.md). Any config field can be
-overridden on the command line; if you shorten a stage with `max_train_steps`,
-point the next stage's `init_ckpt` at a step that stage actually wrote.
+`--encoder_ckpt` takes at [evaluation](eval.md).

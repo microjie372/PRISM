@@ -53,7 +53,7 @@ def eval_scene(
     **kwargs,
 ):
     """
-    Evaluate a single RE10K scene following Wonderland/Bolt3D protocol.
+    Evaluate a single RE10K scene.
 
     - First frame = reference input
     - Evaluate first num_eval_frames frames after reference (default 14)
@@ -72,7 +72,7 @@ def eval_scene(
         f"{raw_matrices.shape[0]} cameras; the scene directory is inconsistent."
     )
 
-    # Apply stride (Wonderland protocol: RE10K=3, DL3DV=2, T&T=4)
+    # Apply stride
     stride = kwargs.get("stride", 1)
     if stride > 1:
         # Keep frame 0 (ref) + every stride-th frame after
@@ -214,7 +214,7 @@ def eval_scene(
     pred_frames = pred_frames[0]                         # (T_render, 3, H, W)
     # T_render == 121 (all GT camera positions); frame 0 = reference view
 
-    # ---- Evaluate frames 1..N_eval vs GT (Wonderland/Bolt3D: first 14 after ref) ----
+    # ---- Evaluate frames 1..N_eval vs GT (first N_eval after the reference) ----
     n_eval = min(N_eval, pred_frames.shape[0] - 1)
     eval_frame_paths = frame_paths[1: 1 + n_eval]
 
@@ -295,7 +295,7 @@ def parse_args():
                    help="Root directory containing multiple scene subdirectories")
     p.add_argument("--num_scenes",  type=int, default=300)
     p.add_argument("--num_eval_frames", type=int, default=14,
-                   help="Number of frames after ref to evaluate (Wonderland=14, Bolt3D=14/90)")
+                   help="Number of frames after the reference to evaluate")
     p.add_argument("--stride", type=int, default=1,
                    help="Frame sampling stride (default=1)")
 

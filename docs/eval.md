@@ -1,9 +1,7 @@
 # Evaluation
 
 The reference frame is each clip's first frame, and the following 14 frames are
-scored against the ground truth at 704x1280. The protocol follows
-[Wonderland](https://arxiv.org/abs/2412.12091) and
-[Bolt3D](https://arxiv.org/abs/2503.14445).
+scored against the ground truth at 704x1280.
 
 These datasets give camera poses only up to an unknown scale, so each scene's
 monocular depth is aligned to its cameras from sparse optical flow before
@@ -37,7 +35,7 @@ Each run writes per-scene and aggregate PSNR, SSIM and LPIPS as JSON into
 `--output_dir`, and resumes from it if interrupted. Add `--save_renders` to
 keep the rendered frames.
 
-Note: set `--stride n` for a different frame sampling interval.
+Note: set `--stride n` on RE10K or T&T for a different frame sampling interval.
 
 ## A single image
 

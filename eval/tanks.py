@@ -236,7 +236,7 @@ def eval_scene(
     frame_paths_all = frame_paths_all[start_frame:]
     c2ws_all = c2ws_all[start_frame:]
 
-    # Apply stride (Wonderland protocol: RE10K=3, DL3DV=2, T&T=4) -- same
+    # Apply stride -- same
     # convention as eval/re10k.py: keep the clip's reference frame (index 0
     # post-offset) + every stride-th frame after it.
     if stride > 1:
@@ -457,8 +457,7 @@ def parse_args():
     p.add_argument("--num_eval_frames", type=int, default=14,
                    help="Frames per clip (including reference). Clips start at 0, N, 2N, ...")
     p.add_argument("--stride", type=int, default=1,
-                   help="Frame sampling stride within each clip (Wonderland protocol: "
-                        "RE10K=3, DL3DV=2, T&T=4). default=1 (consecutive frames).")
+                   help="Frame sampling stride within each clip. default=1 (consecutive frames).")
 
     p.add_argument("--config",         type=str, required=True)
     p.add_argument("--config_default", type=str, default="configs/inference/default.yaml")

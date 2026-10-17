@@ -41,7 +41,7 @@ seconds per scene.
 
 | Checkpoint | Trained on | Stages | Download |
 |---|---|---|---|
-| `prism_stage2.pt` | Lyra's static training data, 401 scenes | 20k warm-up, 5k distillation, 10k perceptual | TBD |
+| `prism_stage2.pt` | Lyra's static training data, 401 scenes | 20k warm-up, 5k distillation, 10k perceptual | [HuggingFace](https://huggingface.co/microjet378/PRISM) |
 
 The checkpoint holds the residual encoder alone. The frozen 3DGS decoder is a
 separate download from NVIDIA under its own model licence; see
@@ -51,7 +51,7 @@ separate download from NVIDIA under its own model licence; see
 
 ## Quick start
 
-### 1. Clone, then set up Lyra
+### 1. Environment Setup
 
 ```bash
 git clone https://github.com/microjie372/PRISM.git
@@ -63,7 +63,7 @@ Lyra's own instructions for both the environment and the weight downloads:
 
 > https://github.com/nv-tlabs/lyra (see `Lyra-1/INSTALL.md`)
 
-### 2. `Checkpoints Structure`
+### 2. Checkpoints Structure
 
 ```
 checkpoints/
@@ -78,7 +78,7 @@ mkdir -p checkpoints/prism
 ln -s /path/to/prism_stage2.pt checkpoints/prism/prism_stage2.pt
 ```
 
-### 3. `Datasets Structure`
+### 3. Datasets Structure
 
 Download and convert each benchmark as [Setup](docs/setup.md) describes, which
 also gives the full directory structure.
@@ -88,10 +88,10 @@ mkdir -p datasets
 ln -s /path/to/re10k/test datasets/re10k/test
 ```
 
-### 4. Environment
+### 4. Activate Environment
 
 ```bash
-conda activate prism          # whatever you named Lyra's environment
+conda activate prism
 export PYTHONPATH=$(pwd)
 ```
 
@@ -150,6 +150,4 @@ predicts latents for, and which supplies the training data and the data stack.
 Lyra in turn builds on [NVIDIA Cosmos](https://github.com/NVIDIA/Cosmos) and
 [GEN3C](https://github.com/nv-tlabs/GEN3C), with input images from
 [FLUX](https://github.com/black-forest-labs/flux). Depth comes from
-[MoGe](https://github.com/microsoft/MoGe). The evaluation protocol follows
-[Wonderland](https://arxiv.org/abs/2412.12091) and
-[Bolt3D](https://arxiv.org/abs/2503.14445).
+[MoGe](https://github.com/microsoft/MoGe).
